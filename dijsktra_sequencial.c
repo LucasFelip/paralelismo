@@ -4,10 +4,17 @@
 #include <time.h>
 #include <locale.h>
 
-#define TOTALCIDADES 100
+#define TOTALCIDADES 10
 
 int distancias[TOTALCIDADES * TOTALCIDADES];
 double custos[TOTALCIDADES];
+
+void zeraDistancia(){
+    for (int i = 0; i < TOTALCIDADES * TOTALCIDADES; i++)
+        distancias[i] = -1;
+    for (int i = 0; i < TOTALCIDADES; i++)
+        custos[i] = 0;
+}
 
 void criaGrafo(){
     int origem, destino, totalLigacoes, i, ok, distancia;
@@ -32,6 +39,14 @@ void criaGrafo(){
     }
 }
 
+void calculoDistancia(){
+    int i, j;
+    for (i = 0; i < TOTALCIDADES; i++){
+        for (j = 0; j < TOTALCIDADES; j++)
+            dijkstra(i, j);
+    }
+}
+
 void dijkstra(int origem, int destino){
     int *anterior, i, aux;
     int *verticesNoCaminho, calculo;
@@ -39,8 +54,7 @@ void dijkstra(int origem, int destino){
 
     verticesNoCaminho = calloc(TOTALCIDADES, sizeof(int *));
     if (verticesNoCaminho == NULL){
-        printf("ERROR: Erro na alocacao \n");
-        printf("ERROR: Erro na alocacao \n");
+        printf("Erro na alocacao\n");
         exit(-1);
     }
 
@@ -79,24 +93,6 @@ void dijkstra(int origem, int destino){
 
     printf("Distancia de %i ate %i: ", origem, destino);
     printf("Custo: %f\n", custos[destino]);
-}
-
-void calculoDistancia(){
-    int i, j;
-    for (i = 0; i < TOTALCIDADES; i++){
-        for (j = 0; j < TOTALCIDADES; j++)
-            dijkstra(i, j);
-    }
-}
-
-void zeraDistancia(){
-    int i;
-    for (i = 0; i < TOTALCIDADES * TOTALCIDADES; i++)
-        distancias[i] = -1;
-
-    for (i = 0; i < TOTALCIDADES; i++)
-        custos[i] = 0;
-
 }
 
 int main(int argc, char *argv[]){
