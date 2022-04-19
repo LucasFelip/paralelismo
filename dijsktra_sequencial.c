@@ -4,7 +4,7 @@
 #include <time.h>
 #include <locale.h>
 
-#define TOTALCIDADES 10
+#define TOTALCIDADES 5
 
 int distancias[TOTALCIDADES * TOTALCIDADES];
 double custos[TOTALCIDADES];
@@ -20,7 +20,7 @@ void criaGrafo(){
     int origem, destino, totalLigacoes, i, ok, distancia;
 
     totalLigacoes = rand() % (TOTALCIDADES * 4);
-    printf("TOTAL LIGACOES: %i\n", totalLigacoes);
+    printf("TOTAL LIGACOES: %i \n\n", totalLigacoes);
 
     for (i = 0; i < totalLigacoes; i++){
         ok = 0;
@@ -32,7 +32,7 @@ void criaGrafo(){
                     distancia = (rand() % 20) + 1;
                     distancias[(origem)*TOTALCIDADES + destino] = distancia;
                     ok = 1;
-                    printf("Ligacao entre as cidades: %i e %i com distancia: %i\n", origem, destino, distancia);
+                    printf("De %i e %i com distancia: %i\n", origem, destino, distancia);
                 }
             }
         }
@@ -41,6 +41,7 @@ void criaGrafo(){
 
 void calculoDistancia(){
     int i, j;
+    printf("\n\nDistancias de A até B com custo C \n");
     for (i = 0; i < TOTALCIDADES; i++){
         for (j = 0; j < TOTALCIDADES; j++)
             dijkstra(i, j);
@@ -48,8 +49,7 @@ void calculoDistancia(){
 }
 
 void dijkstra(int origem, int destino){
-    int *anterior, i, aux;
-    int *verticesNoCaminho, calculo;
+    int *anterior, i, aux, *verticesNoCaminho, calculo;
     double distMinima, auxDist;
 
     verticesNoCaminho = calloc(TOTALCIDADES, sizeof(int *));
@@ -68,7 +68,6 @@ void dijkstra(int origem, int destino){
 
     verticesNoCaminho[origem] = 1;
     custos[origem] = 0;
-
     do{
         distMinima = HUGE_VAL;
         for (i = 0; i < TOTALCIDADES; i++){
@@ -91,8 +90,8 @@ void dijkstra(int origem, int destino){
         }
     } while (aux != destino && distMinima != HUGE_VAL);
 
-    printf("Distancia de %i ate %i: ", origem, destino);
-    printf("Custo: %f\n", custos[destino]);
+    printf("De %i ate %i, ", origem, destino);
+    printf("custa: %.0f\n", custos[destino]);
 }
 
 int main(int argc, char *argv[]){
@@ -101,6 +100,7 @@ int main(int argc, char *argv[]){
     float tempo;
     time_t t_init, t_fim;
 
+    printf("Algoritmo de Dijkstra Sequencial \n\n");
     srand((unsigned)TOTALCIDADES);
     zeraDistancia();
     criaGrafo();
@@ -110,7 +110,7 @@ int main(int argc, char *argv[]){
     t_fim = time(NULL);
 
     tempo = difftime(t_fim, t_init);
-    printf("Tempo de execução do algoritmo de Dijstrika: %.2fs", tempo);
+    printf("\n\nTempo de execução do algoritmo de Dijstrika: %.2fs", tempo);
 
     return 0;
 }
