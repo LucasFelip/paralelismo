@@ -4,13 +4,13 @@
 #include <time.h>
 #include <locale.h>
 
-#define TOTALCIDADES 5
+#define TOTALCIDADES 100
 
 FILE *file;
 int distancias[TOTALCIDADES * TOTALCIDADES];
 
 void criaGrafo(){
-    file = fopen("mapa_de_5_elem.txt", "w");
+    file = fopen("mapa_100_elem.txt", "w");
     int origem, destino, totalLigacoes, i, ok, distancia;
     for (i = 0; i < totalLigacoes; i++){
         ok = 0;
@@ -22,7 +22,7 @@ void criaGrafo(){
                     distancia = (rand() % 20) + 1;
                     distancias[(origem)*TOTALCIDADES + destino] = distancia;
                     ok = 1;
-                    fprintf(file,"%i - %i - %i\\n", origem, destino, distancia);
+                    fprintf(file,"%i - %i - %i\n", origem, destino, distancia);
                 }
             }
         }
