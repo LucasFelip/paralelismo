@@ -4,26 +4,31 @@
 #include <time.h>
 #include <locale.h>
 
-#define TOTALCIDADES 5
+// Total de cidades para construção do grafo
+#define TOTALCIDADES 100
 
-FILE *file;
+//todos os arquivos gerados pelo grafo
+FILE *ligacoes, *mapa, *resultado;
+
+// Grafo de distancia entre as cidades e custos
 int distancias[TOTALCIDADES * TOTALCIDADES];
 double custos[TOTALCIDADES];
 
-void zeraDistancia(){
+//  Todas as distancias e custos sao zeradas, pois na hora do algoritmo eh verificado
+//  as cidades que tem ligacoes.
+void zeraDistancia( ){
     for (int i = 0; i < TOTALCIDADES * TOTALCIDADES; i++)
         distancias[i] = -1;
     for (int i = 0; i < TOTALCIDADES; i++)
         custos[i] = 0;
 }
 
-void calculoDistancia(){
-    int i, j;
-    for (i = 0; i < TOTALCIDADES; i++)
-        for (j = 0; j < TOTALCIDADES; j++)
-            dijkstra(i, j);
-}
-
+//  Funcao menorCaminho
+//  - Recebe a origem e destino para calculo
+//  - Aloca vetor necessário
+//  - Verifica as ligacoes que direta que a "cidade" possui
+// - Por fim, é feito o calculo do menor caminho
+// - Impresso o resultado
 void dijkstra(int origem, int destino){
     int *anterior, i, aux, *verticesNoCaminho, calculo;
     double distMinima, auxDist;
@@ -61,15 +66,41 @@ void dijkstra(int origem, int destino){
         }
     } while (aux != destino && distMinima != HUGE_VAL);
 
-    printf("De %i ate %i, ", origem, destino);
-    printf("custa: %.0f\n", custos[destino]);
+    fprintf(resultado,"De %i ate %i, ", origem, destino);
+    fprintf(resultado,"custa: %.0f\n", custos[destino]);
 }
 
-void lerMapa(){}
+//  Funcao calculoDistancia
+//  - Dois for's que chamam a funcao para calculo do menor caminho
+void calculoDistancia(){
+    int i, j;
+    resultado = fopen("resultado.txt","w");
+    for (i = 0; i < TOTALCIDADES; i++)
+        for (j = 0; j < TOTALCIDADES; j++)
+            dijkstra(i, j);
+    fclose(resultado);
+}
+
+// Funcao lerMapa()
+// - Abre os arquivos de mapa e de ligações feitas
+void lerMapa(){
+    int origem, destino, i, distancia, totalLigacoes;
+
+    ligacoes = fopen("./mapas/total_ligacoes.txt","r");
+    fscanf(ligacoes,"%i",&totalLigacoes);
+
+    mapa = fopen("./mapas/mapa_100_cidades.txt","r");
+    for (i = 0; i < totalLigacoes; i++){
+        fscanf(mapa,"%i-%i-%i\n", &origem, &destino, &distancia);
+        distancias[(origem)*TOTALCIDADES + destino] = distancia;
+    }
+}
 
 int main(int argc, char *argv[]){
     setlocale(LC_ALL, "Portuguese");
 
+    zeraDistancia();
+    lerMapa();
     calculoDistancia();
 
     return 0;

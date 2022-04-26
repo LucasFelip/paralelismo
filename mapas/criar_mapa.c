@@ -4,14 +4,47 @@
 #include <time.h>
 #include <locale.h>
 
+// Total de cidades para construção do grafo
 #define TOTALCIDADES 100
 
-FILE *file;
+//todos os arquivos gerados pelo grafo
+FILE *ligacoes, *mapa, *cidades;
+
+// Grafo de distancia entre as cidades
 int distancias[TOTALCIDADES * TOTALCIDADES];
 
-void criaGrafo(){
-    file = fopen("mapa_100_elem.txt", "w");
-    int origem, destino, totalLigacoes, i, ok, distancia;
+
+//  Todas as distancias e custos sao zeradas, pois na hora do algoritmo eh verificado
+//  as cidades que tem ligacoes.
+void zeraDistancia(){
+    for (int i = 0; i < TOTALCIDADES * TOTALCIDADES; i++)
+        distancias[i] = -1;
+}
+
+//  Funcao principal
+//  - Rand para o total de ligacoes que o grafo irá ter
+//  - Rand para qual cidade origem e destino
+//  - Verifica se nao eh a mesma cidade e se ja nao possui ligacao entre as mesmas
+//  - Rand para a distância
+//  - Vetor distancias:
+//      - Pos 0 ate (TOTALCIDADES - 1) = cidade 1
+//      - Pos (TOTALCIDADES) ate ((2*TOTALCIDADES) -1) = cidade 2
+int main(void){
+    int origem, destino, i, ok, distancia, totalLigacoes;
+    srand((unsigned)TOTALCIDADES);
+
+    zeraDistancia();
+
+    cidades = fopen("total_cidades.txt","w");
+    fprintf(cidades,"%i",TOTALCIDADES);
+    fclose(cidades);
+
+    totalLigacoes = rand() % (TOTALCIDADES * 4);
+    ligacoes = fopen("total_ligacoes.txt","w");
+    fprintf(ligacoes,"%i", totalLigacoes);
+    fclose(ligacoes);
+
+    mapa = fopen("mapa_100_cidades.txt","w");
     for (i = 0; i < totalLigacoes; i++){
         ok = 0;
         while (ok == 0){
@@ -22,24 +55,11 @@ void criaGrafo(){
                     distancia = (rand() % 20) + 1;
                     distancias[(origem)*TOTALCIDADES + destino] = distancia;
                     ok = 1;
-                    fprintf(file,"%i - %i - %i\n", origem, destino, distancia);
+                    fprintf(mapa,"%i-%i-%i\n", origem, destino, distancia);
                 }
             }
         }
     }
-    fclose(file);
-}
-
-void zeraDistancia(){
-    for (int i = 0; i < TOTALCIDADES * TOTALCIDADES; i++)
-        distancias[i] = -1;
-}
-
-int main(void){
-    srand((unsigned)TOTALCIDADES);
-    zeraDistancia();
-    criaGrafo();
-
-    printf("Mapa gerado");
+    fclose(mapa);
     return 0;
 }
