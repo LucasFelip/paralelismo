@@ -1,10 +1,11 @@
+#define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
 #include <locale.h>
-#include <omp.h>
+//#include <omp.h>
 
 // Total de cidades para constru��o do grafo
 #define TOTALCIDADES 100
@@ -13,7 +14,7 @@
 #define threads 25
 
 // Todos os arquivos gerados pelo grafo
-FILE* ligacoes, * mapa, * resultado;
+FILE *ligacoes, *mapa, *resultado;
 
 // Grafo de distancia entre as cidades e custos
 int distancias[TOTALCIDADES * TOTALCIDADES];
@@ -26,6 +27,7 @@ void zeraDistancia() {
         distancias[i] = -1;
     for (int i = 0; i < TOTALCIDADES; i++)
         custos[i] = 0;
+    printf(" Distancias zeradas \n");
 }
 
 // Funcao lerMapa()
@@ -34,13 +36,15 @@ void lerMapa() {
     int origem, destino, i, distancia, totalLigacoes;
 
     ligacoes = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
-    fscanf(ligacoes, "%i", &totalLigacoes);
+    fscanf_s(ligacoes, "%i", &totalLigacoes);
 
-    mapa = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
-    for (i = 0; i < totalLigacoes; i++) {
-        fscanf(mapa, "%i-%i-%i\n", &origem, &destino, &distancia);
-        distancias[(origem)*TOTALCIDADES + destino] = distancia;
+    //mapa = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
+    for (i = 0; i < 5; i++) {
+        //fscanf(mapa, "%i-%i-%i\n", &origem, &destino, &distancia);
+        //distancias[(origem)*TOTALCIDADES + destino] = distancia;
     }
+
+    printf(" Mapa lido com sucesso \n");
 }
 
 void main() {

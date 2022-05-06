@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\paralelo_omp",
+    "\\paralelo_omp\\paralelo_omp"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\paralelo_omp\\paralelo_omp\\Dijsktra.c",
   "PreviewInSolutionExplorer": false
 }
