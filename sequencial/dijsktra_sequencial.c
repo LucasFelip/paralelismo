@@ -86,10 +86,10 @@ void calculoDistancia(){
 void lerMapa(){
     int origem, destino, i, distancia, totalLigacoes;
 
-    ligacoes = fopen("./mapas/total_ligacoes.txt","r");
+    ligacoes = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
     fscanf(ligacoes,"%i",&totalLigacoes);
 
-    mapa = fopen("./mapas/mapa_100_cidades.txt","r");
+    mapa = fopen("programa-o_sequencial_paralela/mapas/mapa_100_cidades.txt","r");
     for (i = 0; i < totalLigacoes; i++){
         fscanf(mapa,"%i-%i-%i\n", &origem, &destino, &distancia);
         distancias[(origem)*TOTALCIDADES + destino] = distancia;

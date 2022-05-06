@@ -6,7 +6,7 @@
 #include <locale.h>
 #include <omp.h>
 
-// Total de cidades para construção do grafo
+// Total de cidades para construï¿½ï¿½o do grafo
 #define TOTALCIDADES 100
 
 // Total de threads que devem ser usadas
@@ -29,14 +29,14 @@ void zeraDistancia() {
 }
 
 // Funcao lerMapa()
-// - Abre os arquivos de mapa e de ligações feitas
+// - Abre os arquivos de mapa e de ligaï¿½ï¿½es feitas
 void lerMapa() {
     int origem, destino, i, distancia, totalLigacoes;
 
-    ligacoes = fopen("./sequencial/mapas/total_ligacoes.txt", "r");
+    ligacoes = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
     fscanf(ligacoes, "%i", &totalLigacoes);
 
-    mapa = fopen("./sequencial/mapas/total_ligacoes.txt", "r");
+    mapa = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
     for (i = 0; i < totalLigacoes; i++) {
         fscanf(mapa, "%i-%i-%i\n", &origem, &destino, &distancia);
         distancias[(origem)*TOTALCIDADES + destino] = distancia;
