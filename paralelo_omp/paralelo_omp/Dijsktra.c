@@ -36,26 +36,25 @@ void lerMapa() {
     int origem, destino, i, distancia, totalLigacoes;
 
     ligacoes = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
-    fscanf_s(ligacoes, "%i", &totalLigacoes);
+    fscanf(ligacoes, "%i", &totalLigacoes);
 
-    //mapa = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
-    for (i = 0; i < 5; i++) {
-        //fscanf(mapa, "%i-%i-%i\n", &origem, &destino, &distancia);
-        //distancias[(origem)*TOTALCIDADES + destino] = distancia;
+    mapa = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
+    for (i = 0; i < totalLigacoes; i++) {
+        fscanf(mapa, "%i-%i-%i\n", &origem, &destino, &distancia);
+        distancias[(origem)*TOTALCIDADES + destino] = distancia;
     }
 
     printf(" Mapa lido com sucesso \n");
 }
 
 void main() {
-    //int n, id, i;
-    //n = 50;
+    int n, id, i;
+    n = 50;
 
     zeraDistancia();
     lerMapa();
     //calculoDistancia();
 
-    /*
     #pragma omp parallel num_threads(threads) 
     {
         #pragma omp for
@@ -64,5 +63,4 @@ void main() {
             printf("Thread_id = %d, i= %d , m=%d\n", id, i, threads);
         }
     }
-    */
 }
