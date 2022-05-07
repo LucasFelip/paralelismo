@@ -1,11 +1,10 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
 #include <locale.h>
-//#include <omp.h>
+#include <omp.h>
 
 // Total de cidades para constru��o do grafo
 #define TOTALCIDADES 100
@@ -35,29 +34,30 @@ void zeraDistancia() {
 void lerMapa() {
     int origem, destino, i, distancia, totalLigacoes;
 
-    ligacoes = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
-    fscanf(ligacoes, "%i", &totalLigacoes);
+    if (ligacoes = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt", "r") != NULL) {
+        fscanf(ligacoes, "%i", &totalLigacoes);
 
-    mapa = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt","r");
-    for (i = 0; i < totalLigacoes; i++) {
-        fscanf(mapa, "%i-%i-%i\n", &origem, &destino, &distancia);
-        distancias[(origem)*TOTALCIDADES + destino] = distancia;
+        if (mapa = fopen("programa-o_sequencial_paralela/mapas/total_ligacoes.txt", "r") != NULL) {
+            #pragma omp for
+            for (i = 0; i < totalLigacoes; i++) {
+                fscanf(mapa, "%i-%i-%i\n", &origem, &destino, &distancia);
+                distancias[(origem)*TOTALCIDADES + destino] = distancia;
+            }
+            printf(" Mapa lido com sucesso \n");
+        }
     }
-
-    printf(" Mapa lido com sucesso \n");
 }
 
 void main() {
     int n, id, i;
     n = 50;
 
-    zeraDistancia();
-    lerMapa();
     //calculoDistancia();
 
     #pragma omp parallel num_threads(threads) 
     {
-        #pragma omp for
+        zeraDistancia();
+        lerMapa();
         for (i = 0; i < n; i++) {
             id = omp_get_thread_num();
             printf("Thread_id = %d, i= %d , m=%d\n", id, i, threads);

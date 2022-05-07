@@ -1,5 +1,4 @@
 ﻿  Dijsktra.c
-C:\Users\lucas\OneDrive\Área de Trabalho\Projetos\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(36,16): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\lucas\OneDrive\Área de Trabalho\Projetos\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(37,5): error C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\lucas\OneDrive\Área de Trabalho\Projetos\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(39,12): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\lucas\OneDrive\Área de Trabalho\Projetos\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(41,9): error C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(37,97): warning C4047: '=': 'FILE *' difere em níveis de indireção de 'int'
+D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(40,97): warning C4047: '=': 'FILE *' difere em níveis de indireção de 'int'
+  paralelo_omp.vcxproj -> D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\x64\Debug\paralelo_omp.exe
