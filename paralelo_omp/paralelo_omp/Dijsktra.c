@@ -19,8 +19,8 @@ FILE *ligacoes, *mapa, *resultado;
 int distancias[TOTALCIDADES * TOTALCIDADES];
 double custos[TOTALCIDADES];
 
-//  Todas as distancias e custos sao zeradas, pois na hora do algoritmo eh verificado
-//  as cidades que tem ligacoes.
+// Todas as distancias e custos sao zeradas, pois na hora do algoritmo eh verificado
+// as cidades que tem ligacoes.
 void zeraDistancia() {
     for (int i = 0; i < TOTALCIDADES * TOTALCIDADES; i++)
         distancias[i] = -1;
@@ -45,6 +45,12 @@ void lerMapa() {
     printf(" Mapa lido com sucesso!\n");
 }
 
+// Funcao menorCaminho
+// - Recebe a origem e destino para calculo
+// - Aloca vetor necessário
+// - Verifica as ligacoes que direta que a "cidade" possui
+// - Por fim, é feito o calculo do menor caminho
+// - Impresso o resultado
 void dijkstra(int origem, int destino) {
     int* anterior, i, aux = 0, * verticesNoCaminho, calculo;
     double distMinima, auxDist;
@@ -96,8 +102,8 @@ void dijkstra(int origem, int destino) {
     fprintf(resultado, " custa: %.0f\n", custos[destino]);
 }
 
-//  Funcao calculoDistancia
-//  - Dois for's que chamam a funcao para calculo do menor caminho
+// Funcao calculoDistancia
+// - Dois for's que chamam a funcao para calculo do menor caminho
 void calculoDistancia() {
     int i, j;
     resultado = fopen("resultado.txt", "w");
