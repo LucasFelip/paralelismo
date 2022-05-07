@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\mapas",
     "\\paralelo_omp",
-    "\\paralelo_omp\\paralelo_omp"
+    "\\paralelo_omp\\paralelo_omp",
+    "\\paralelo_omp\\paralelo_omp\\mapas",
+    "\\sequencial"
   ],
   "SelectedNode": "\\paralelo_omp\\paralelo_omp\\Dijsktra.c",
   "PreviewInSolutionExplorer": false

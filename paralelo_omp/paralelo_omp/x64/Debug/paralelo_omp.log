@@ -1,4 +1,5 @@
 ﻿  Dijsktra.c
-D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(37,97): warning C4047: '=': 'FILE *' difere em níveis de indireção de 'int'
-D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(40,97): warning C4047: '=': 'FILE *' difere em níveis de indireção de 'int'
+D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(49,10): warning C4101: 'anterior': variável local não referenciada
+D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(49,53): warning C4101: 'calculo': variável local não referenciada
+D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(50,24): warning C4101: 'auxDist': variável local não referenciada
   paralelo_omp.vcxproj -> D:\IFMA\Computação Paralela\Aula_01 - OpenMP\programa-o_sequencial_paralela\paralelo_omp\x64\Debug\paralelo_omp.exe
