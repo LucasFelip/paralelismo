@@ -5,7 +5,7 @@
 #include <locale.h>
 
 // Total de cidades para construção do grafo
-#define TOTALCIDADES 100
+#define TOTALCIDADES 500
 
 //todos os arquivos gerados pelo grafo
 FILE *ligacoes, *mapa, *cidades;
@@ -44,7 +44,7 @@ int main(void){
     fprintf(ligacoes,"%i", totalLigacoes);
     fclose(ligacoes);
 
-    mapa = fopen("mapa_100_cidades.txt","w");
+    mapa = fopen("mapa_cidades.txt","w");
     for (i = 0; i < totalLigacoes; i++){
         ok = 0;
         while (ok == 0){
