@@ -7,10 +7,7 @@
 #include <omp.h>
 
 // Total de cidades para constru��o do grafo
-#define TOTALCIDADES 100
-
-// Total de threads que devem ser usadas
-#define threads 25
+#define TOTALCIDADES 500
 
 // Todos os arquivos gerados pelo grafo
 FILE *ligacoes, *mapa, *resultado;
@@ -37,12 +34,12 @@ void lerMapa() {
     ligacoes = fopen("./mapas/total_ligacoes.txt", "r");
     fscanf(ligacoes, "%i", &totalLigacoes);
 
-    mapa = fopen("./mapas/mapa_100_cidades.txt", "r");
+    mapa = fopen("./mapas/mapa_cidades.txt", "r");
     for (i = 0; i < totalLigacoes; i++) {
         fscanf(mapa, "%i-%i-%i\n", &origem, &destino, &distancia);
         distancias[(origem)*TOTALCIDADES + destino] = distancia;
     }
-    printf(" Mapa lido com sucesso!\n");
+    printf(" Mapa lido com sucesso \n");
 }
 
 // Funcao menorCaminho
@@ -72,7 +69,7 @@ void dijkstra(int origem, int destino) {
     verticesNoCaminho[origem] = 1;
     custos[origem] = 0;
     
-    #pragma omp parallel private(i)
+    #pragma omp parallel private(i, aux)
     {
         do {
             distMinima = HUGE_VAL;
@@ -98,21 +95,15 @@ void dijkstra(int origem, int destino) {
             }
         } while (aux != destino && distMinima != HUGE_VAL);
     }
-    fprintf(resultado, " De %i ate %i, ", origem, destino);
-    fprintf(resultado, " custa: %.0f\n", custos[destino]);
 }
 
 // Funcao calculoDistancia
 // - Dois for's que chamam a funcao para calculo do menor caminho
 void calculoDistancia() {
     int i, j;
-    resultado = fopen("resultado.txt", "w");
-
-    #pragma omp for
     for (i = 0; i < TOTALCIDADES; i++)
         for (j = 0; j < TOTALCIDADES; j++)
             dijkstra(i, j);
-    fclose(resultado);
 }
 
 // Funcao principal Main
@@ -125,13 +116,8 @@ void main() {
     zeraDistancia();
     lerMapa();
 
-    omp_set_num_threads(threads);
-
     t_ini = omp_get_wtime();
-    #pragma omp parallel
-    {
-        calculoDistancia();  
-    }
+    calculoDistancia();  
     t_fim = omp_get_wtime();
     printf(" Duração do algoritmo: %.2f ms\n", (t_fim - t_ini) * 1000);
 }
