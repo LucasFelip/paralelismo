@@ -3,6 +3,7 @@
 #include <math.h>
 #include <mpi.h>
 #include <sys/timeb.h>
+#include <locale.h>
 #include <time.h>
 
 // Total de cidades para construção do grafo
@@ -98,7 +99,38 @@ void lerMapa(){
 // - Roda toda a estrutura 
 int main(int argc, char *argv[]){
     setlocale(LC_ALL, "portuguese");
+    int ntasks, rank, inicio, fim;
+	double start, end;
+	MPI_Request request;
+	MPI_Status status;
 
+    MPI_Init(&argc, &argv);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	MPI_Comm_size(MPI_COMM_WORLD, &ntasks);
+
+	int nDados = TOTALCIDADES / ntasks;
+	inicio = rank * nDados;
+	
+	if(rank == ntasks-1 && TOTALCIDADES % ntasks != 0)
+		fim = TOTALCIDADES;
+	else
+		fim = nDados + rank * nDados;
+
+    srand((unsigned)TOTALCIDADES);
+	zeraDistancia();
+	criaGrafo();
+
+	printf("My rank: %d\n", rank);
+	MPI_Barrier(MPI_COMM_WORLD);
+	start = MPI_Wtime();
+	calculoDistancia(inicio, fim);
+	end = MPI_Wtime();
+	MPI_Barrier(MPI_COMM_WORLD);
+
+	//if (rank == 0) {
+		printf("Runtime = %f\n", end - start);
+	//}
+	MPI_Finalize();
 
     return 0;
 }
