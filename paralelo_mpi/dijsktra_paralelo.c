@@ -118,7 +118,7 @@ int main(int argc, char *argv[]){
 
     srand((unsigned)TOTALCIDADES);
 	zeraDistancia();
-	criaGrafo();
+	lerMapa();
 
 	printf("My rank: %d\n", rank);
 	MPI_Barrier(MPI_COMM_WORLD);
