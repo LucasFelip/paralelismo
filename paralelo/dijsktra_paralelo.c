@@ -97,7 +97,7 @@ void calculoDistancia(){
 
 // Funcao principal Main
 // - Roda toda a estrutura 
-int main(int argc, char *argv[]){
+void main(){
     setlocale(LC_ALL, "portuguese");
     int ntasks, rank, inicio, fim;
 	double start, end;
@@ -131,6 +131,4 @@ int main(int argc, char *argv[]){
 	    printf("Runtime = %f\n", end - start);
 
 	MPI_Finalize();
-
-    return 0;
 }
