@@ -120,7 +120,7 @@ void main(){
 	zeraDistancia();
 	lerMapa();
 
-	printf("My rank: %d\n", rank);
+	printf("Meu Rank: %d\n", rank);
 	MPI_Barrier(MPI_COMM_WORLD);
 	start = MPI_Wtime();
 	calculoDistancia(inicio, fim);
@@ -128,7 +128,7 @@ void main(){
 	MPI_Barrier(MPI_COMM_WORLD);
 
 	if(rank == 0)
-	    printf("Runtime = %f\n", end - start);
+	    printf("Tempo de %f\n", end - start);
 
 	MPI_Finalize();
 }
