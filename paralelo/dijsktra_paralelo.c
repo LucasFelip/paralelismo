@@ -23,6 +23,23 @@ void zeraDistancia( ){
         distancias[i] = -1;
     for (int i = 0; i < TOTALCIDADES; i++)
         custos[i] = 0;
+    printf(" Distancias zeradas \n");
+}
+
+// Funcao lerMapa()
+// - Abre os arquivos de mapa e de ligações feitas
+void lerMapa(){
+    int origem, destino, i, distancia, totalLigacoes;
+
+    ligacoes = fopen("./mapas/total_ligacoes.txt","r");
+    fscanf(ligacoes,"%i",&totalLigacoes);
+
+    mapa = fopen("./mapas/mapa_cidades.txt","r");
+    for (i = 0; i < totalLigacoes; i++){
+        fscanf(mapa,"%i-%i-%i\n", &origem, &destino, &distancia);
+        distancias[(origem)*TOTALCIDADES + destino] = distancia;
+    }
+    printf(" Mapa lido com sucesso \n");
 }
 
 // Funcao menorCaminho
@@ -78,23 +95,6 @@ void calculoDistancia(){
             dijkstra(i, j);
 }
 
-// Funcao lerMapa()
-// - Abre os arquivos de mapa e de ligações feitas
-void lerMapa(){
-    int origem, destino, i, distancia, totalLigacoes;
-
-    ligacoes = fopen("./mapas/total_ligacoes.txt","r");
-    fscanf(ligacoes,"%i",&totalLigacoes);
-
-    mapa = fopen("./mapas/mapa_cidades.txt","r");
-    for (i = 0; i < totalLigacoes; i++){
-        fscanf(mapa,"%i-%i-%i\n", &origem, &destino, &distancia);
-
-        distancias[(origem)*TOTALCIDADES + destino] = distancia;
-    }
-}
-
-
 // Funcao principal Main
 // - Roda toda a estrutura 
 int main(int argc, char *argv[]){
@@ -127,9 +127,9 @@ int main(int argc, char *argv[]){
 	end = MPI_Wtime();
 	MPI_Barrier(MPI_COMM_WORLD);
 
-	//if (rank == 0) {
-		printf("Runtime = %f\n", end - start);
-	//}
+	if(rank == 0)
+	    printf("Runtime = %f\n", end - start);
+
 	MPI_Finalize();
 
     return 0;

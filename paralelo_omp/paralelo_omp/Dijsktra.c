@@ -119,5 +119,5 @@ void main() {
     t_ini = omp_get_wtime();
     calculoDistancia();  
     t_fim = omp_get_wtime();
-    printf(" Duração do algoritmo: %.2f ms\n", (t_fim - t_ini) * 1000);
+    printf(" Runtime: %.2f ms\n", (t_fim - t_ini) * 1000);
 }
