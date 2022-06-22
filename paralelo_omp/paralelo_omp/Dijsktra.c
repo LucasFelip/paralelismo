@@ -49,7 +49,7 @@ void lerMapa() {
 // - Por fim, é feito o calculo do menor caminho
 // - Impresso o resultado
 void dijkstra(int origem, int destino) {
-    int* anterior, i, aux = 0, * verticesNoCaminho, calculo;
+    int* anterior, i, aux = 0, * verticesNoCaminho, calculo, theards = 50;
     double distMinima, auxDist;
 
     verticesNoCaminho = calloc(TOTALCIDADES, sizeof(int*));
@@ -68,30 +68,29 @@ void dijkstra(int origem, int destino) {
     
     verticesNoCaminho[origem] = 1;
     custos[origem] = 0;
+
+    //omp_set_num_threads(theards);
     
-    #pragma omp parallel private(i, aux)
+    #pragma omp parallel private(i, custos, anterior)
     {
         do {
             distMinima = HUGE_VAL;
+            #pragma omp for
             for (i = 0; i < TOTALCIDADES; i++)
-            #pragma omp single
-            {
                 if (!verticesNoCaminho[i])
                     if (custos[i] >= 0 && custos[i] < distMinima) {
                         distMinima = custos[i];
                         aux = i;
                     }
-            }
             if (distMinima != HUGE_VAL && aux != destino) {
                 verticesNoCaminho[aux] = 1;
+                #pragma omp for
                 for (i = 0; i < TOTALCIDADES; i++) {
-                    #pragma omp barrier
                     if (!verticesNoCaminho[i])
                         if (distancias[aux * TOTALCIDADES + i] != -1 && custos[aux] + distancias[aux * TOTALCIDADES + i] < custos[i])
                             custos[i] = custos[aux] + distancias[aux * TOTALCIDADES + i];
-                    #pragma omp barrier
                 }
-                
+
             }
         } while (aux != destino && distMinima != HUGE_VAL);
     }
