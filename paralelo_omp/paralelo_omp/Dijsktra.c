@@ -109,14 +109,16 @@ void calculoDistancia() {
 // - Roda toda a estrutura 
 void main() {
     setlocale(LC_ALL, "Portuguese");
+    time_t t_ini, t_fim;
+    float temp;
 
-    double t_ini, t_fim;
-
+    srand((unsigned)TOTALCIDADES);
     zeraDistancia();
     lerMapa();
 
-    t_ini = omp_get_wtime();
+    t_ini = time(NULL);
     calculoDistancia();  
-    t_fim = omp_get_wtime();
-    printf(" Runtime: %.2f ms\n", (t_fim - t_ini) * 1000);
+    t_fim = time(NULL);
+    temp = difftime(t_fim, t_ini);
+    printf("Tempo de execução: %.2f", temp);
 }

@@ -96,7 +96,7 @@ void lerMapa(){
 // Funcao principal Main
 // - Roda toda a estrutura 
 int main(int argc, char *argv[]){
-    setlocale(LC_ALL, "portuguese");
+    setlocale(LC_ALL, "Portuguese");
     time_t t_ini, t_fim;
     float temp;
 

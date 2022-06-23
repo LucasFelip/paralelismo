@@ -89,48 +89,53 @@ void dijkstra(int origem, int destino){
 
 // Funcao calculoDistancia
 // - Dois for's que chamam a funcao para calculo do menor caminho
-void calculoDistancia(){
+void calculoDistancia(int inicio, int fim) {
     int i, j;
-    for (i = 0; i < TOTALCIDADES; i++)
-        for (j = 0; j < TOTALCIDADES; j++)
+    //separa para cada processo fazer sua parte
+    for (i = inicio; i < fim; i++) {
+        for (j = 0; j < TOTALCIDADES; j++) {
             dijkstra(i, j);
+        }
+    }
+
 }
 
 // Funcao principal Main
 // - Roda toda a estrutura 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     setlocale(LC_ALL, "portuguese");
+    time_t t_ini, t_fim;
+    float temp;
     int ntasks, rank, inicio, fim;
-	double start, end;
-	MPI_Request request;
-	MPI_Status status;
+
+    MPI_Request request;
+    MPI_Status status;
 
     MPI_Init(&argc, &argv);
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &ntasks);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &ntasks);
 
-	int nDados = TOTALCIDADES / ntasks;
-	inicio = rank * nDados;
-	
-	if(rank == ntasks-1 && TOTALCIDADES % ntasks != 0)
-		fim = TOTALCIDADES;
-	else
-		fim = nDados + rank * nDados;
+    int nDados = TOTALCIDADES / ntasks;
+    inicio = rank * nDados;
+
+    if (rank == ntasks - 1 && TOTALCIDADES % ntasks != 0)
+        fim = TOTALCIDADES;
+    else
+        fim = nDados + rank * nDados;
 
     srand((unsigned)TOTALCIDADES);
 	zeraDistancia();
 	lerMapa();
 
-	printf("Meu Rank: %d\n", rank);
-	MPI_Barrier(MPI_COMM_WORLD);
-	start = MPI_Wtime();
-	calculoDistancia(inicio, fim);
-	end = MPI_Wtime();
-	MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
+	t_ini = time(NULL);
+    calculoDistancia(inicio, fim);
+    t_fim = time(NULL);
+    temp = difftime(t_fim, t_ini);
 
-	if(rank == 0)
-	    printf("Tempo de %.2f\n", end - start);
+    if (rank == 0)
+        printf("Tempo de execução: %.2f", temp);
 
-	MPI_Finalize();
+    MPI_Finalize();
     return 0;
 }

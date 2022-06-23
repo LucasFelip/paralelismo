@@ -3,4 +3,5 @@ D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_omp\parale
 D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(52,53): warning C4101: 'calculo': variável local não referenciada
 D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(53,24): warning C4101: 'auxDist': variável local não referenciada
 D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(51): warning C4101: 'anterior': variável local não referenciada
+D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_omp\paralelo_omp\Dijsktra.c(122,12): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
   paralelo_omp.vcxproj -> D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_omp\x64\Debug\paralelo_omp.exe

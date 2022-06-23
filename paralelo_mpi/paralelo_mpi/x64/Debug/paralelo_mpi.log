@@ -2,6 +2,7 @@
 D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\paralelo_mpi\dijsktra_paralelo.c(53,10): warning C4101: 'anterior': variável local não referenciada
 D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\paralelo_mpi\dijsktra_paralelo.c(53,52): warning C4101: 'calculo': variável local não referenciada
 D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\paralelo_mpi\dijsktra_paralelo.c(54,24): warning C4101: 'auxDist': variável local não referenciada
-D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\paralelo_mpi\dijsktra_paralelo.c(105,14): warning C4101: 'request': variável local não referenciada
-D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\paralelo_mpi\dijsktra_paralelo.c(106,13): warning C4101: 'status': variável local não referenciada
+D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\paralelo_mpi\dijsktra_paralelo.c(134,12): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\paralelo_mpi\dijsktra_paralelo.c(111,17): warning C4101: 'request': variável local não referenciada
+D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\paralelo_mpi\dijsktra_paralelo.c(112,16): warning C4101: 'status': variável local não referenciada
   paralelo_mpi.vcxproj -> D:\IFMA\Computação Paralela\programa-o_sequencial_paralela\paralelo_mpi\x64\Debug\paralelo_mpi.exe
