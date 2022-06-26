@@ -82,6 +82,7 @@ void dijkstra(int origem, int destino) {
                         distMinima = custos[i];
                         aux = i;
                     }
+            #pragma omp parallel
             if (distMinima != HUGE_VAL && aux != destino) {
                 verticesNoCaminho[aux] = 1;
                 #pragma omp for
@@ -107,7 +108,7 @@ void calculoDistancia() {
 
 // Funcao principal Main
 // - Roda toda a estrutura 
-void main() {
+int main(int argc, char** argv) {
     setlocale(LC_ALL, "Portuguese");
     time_t t_ini, t_fim;
     float temp;
@@ -121,4 +122,6 @@ void main() {
     t_fim = time(NULL);
     temp = difftime(t_fim, t_ini);
     printf("Tempo de execução: %.2f", temp);
+
+    return EXIT_SUCCESS;
 }
