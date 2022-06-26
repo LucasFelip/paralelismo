@@ -5,7 +5,7 @@
 #include <locale.h>
 
 // Total de cidades para construção do grafo
-#define TOTALCIDADES 1000
+#define TOTALCIDADES 500
 
 // Todos os arquivos gerados pelo grafo
 FILE *ligacoes, *mapa, *resultado;
@@ -21,6 +21,7 @@ void zeraDistancia( ){
         distancias[i] = -1;
     for (int i = 0; i < TOTALCIDADES; i++)
         custos[i] = 0;
+    printf(" Distancias zeradas \n");
 }
 
 // Funcao menorCaminho
@@ -87,9 +88,9 @@ void lerMapa(){
     mapa = fopen("./mapas/mapa_cidades.txt","r");
     for (i = 0; i < totalLigacoes; i++){
         fscanf(mapa,"%i-%i-%i\n", &origem, &destino, &distancia);
-
         distancias[(origem)*TOTALCIDADES + destino] = distancia;
     }
+    printf(" Mapa lido com sucesso \n");
 }
 
 
@@ -100,6 +101,7 @@ int main(int argc, char *argv[]){
     time_t t_ini, t_fim;
     float temp;
 
+    srand((unsigned)TOTALCIDADES);
     zeraDistancia();
     lerMapa();
 
@@ -107,7 +109,7 @@ int main(int argc, char *argv[]){
     calculoDistancia();
     t_fim = time(NULL);
     temp = difftime(t_fim,t_ini);
-    printf("Tempo de execução: %.2f",temp);
+    printf(" Tempo de execução: %.0f",temp);
 
     return 0;
 }
