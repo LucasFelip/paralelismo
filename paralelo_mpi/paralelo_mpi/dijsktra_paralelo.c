@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
 	zeraDistancia();
 	lerMapa();
 
-    printf(" Rank = : %d\n", rank);
+    printf(" Rank = %d\n", rank);
 
     MPI_Barrier(MPI_COMM_WORLD);
 	t_ini = time(NULL);
@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
     temp = difftime(t_fim, t_ini);
 
     if (rank == 0)
-        printf(" Tempo de execução: %.2f\n", temp);
+        printf(" Tempo de execução: %.0f\n", temp);
 
     MPI_Finalize();
     return 0;

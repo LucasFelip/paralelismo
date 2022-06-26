@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
     calculoDistancia();  
     t_fim = time(NULL);
     temp = difftime(t_fim, t_ini);
-    printf("Tempo de execução: %.2f", temp);
+    printf("Tempo de execução: %.0f \n", temp);
 
     return EXIT_SUCCESS;
 }
