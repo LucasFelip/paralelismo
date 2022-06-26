@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\paralelo_mpi",
+    "\\paralelo_mpi\\paralelo_mpi",
+    "\\paralelo_mpi\\paralelo_mpi\\mapas",
+    "\\paralelo_omp",
+    "\\sequencial"
+  ],
+  "SelectedNode": "\\paralelo_mpi\\paralelo_mpi\\mapas\\criar_mapa.c",
+  "PreviewInSolutionExplorer": false
+}

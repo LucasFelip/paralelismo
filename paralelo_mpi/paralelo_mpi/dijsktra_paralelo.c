@@ -55,7 +55,7 @@ void dijkstra(int origem, int destino){
 
     verticesNoCaminho = calloc(TOTALCIDADES, sizeof(int *));
     if (verticesNoCaminho == NULL){
-        printf("Erro na alocacao\n");
+        printf(" Erro na alocacao\n");
         exit(-1);
     }
 
@@ -91,13 +91,9 @@ void dijkstra(int origem, int destino){
 // - Dois for's que chamam a funcao para calculo do menor caminho
 void calculoDistancia(int inicio, int fim) {
     int i, j;
-    //separa para cada processo fazer sua parte
-    for (i = inicio; i < fim; i++) {
-        for (j = 0; j < TOTALCIDADES; j++) {
+    for (i = inicio; i < fim; i++)
+        for (j = 0; j < TOTALCIDADES; j++)
             dijkstra(i, j);
-        }
-    }
-
 }
 
 // Funcao principal Main
@@ -107,7 +103,6 @@ int main(int argc, char **argv) {
     time_t t_ini, t_fim;
     float temp;
     int ntasks, rank, inicio, fim;
-
     MPI_Request request;
     MPI_Status status;
 
@@ -127,14 +122,17 @@ int main(int argc, char **argv) {
 	zeraDistancia();
 	lerMapa();
 
+    printf(" Rank = : %d\n", rank);
+
     MPI_Barrier(MPI_COMM_WORLD);
 	t_ini = time(NULL);
     calculoDistancia(inicio, fim);
     t_fim = time(NULL);
+    MPI_Barrier(MPI_COMM_WORLD);
     temp = difftime(t_fim, t_ini);
 
     if (rank == 0)
-        printf("Tempo de execução: %.2f", temp);
+        printf(" Tempo de execução: %.2f\n", temp);
 
     MPI_Finalize();
     return 0;

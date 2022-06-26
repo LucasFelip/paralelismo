@@ -5,7 +5,7 @@
 #include <locale.h>
 
 // Total de cidades para construção do grafo
-#define TOTALCIDADES 500
+#define TOTALCIDADES 1000
 
 // Todos os arquivos gerados pelo grafo
 FILE *ligacoes, *mapa, *resultado;
