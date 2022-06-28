@@ -43,6 +43,12 @@ void lerMapa(){
     printf(" Mapa lido com sucesso \n");
 }
 
+int matrix_size(MPI_Comm comm) {
+    int n = 8;
+    MPI_Bcast(&n, 1, MPI_INT, 0, comm);
+    return n;
+}
+
 // Funcao menorCaminho
 // - Recebe a origem e destino para calculo
 // - Aloca vetor necessário
@@ -50,7 +56,7 @@ void lerMapa(){
 // - Por fim, é feito o calculo do menor caminho
 // - Impresso o resultado
 void dijkstra(int origem, int destino){
-    int *anterior, i, aux = 0, *verticesNoCaminho, calculo;
+    int *anterior, i, aux = 0, *verticesNoCaminho, calculo, n;
     double distMinima, auxDist;
 
     verticesNoCaminho = calloc(TOTALCIDADES, sizeof(int *));
@@ -58,6 +64,8 @@ void dijkstra(int origem, int destino){
         printf(" Erro na alocacao\n");
         exit(-1);
     }
+
+    //n = matrix_size(MPI_COMM_WORLD);
 
     for (i = 0; i < TOTALCIDADES; i++){
         verticesNoCaminho[i] = 0;
@@ -79,10 +87,11 @@ void dijkstra(int origem, int destino){
                 }
         if (distMinima != HUGE_VAL && aux != destino){
             verticesNoCaminho[aux] = 1;
-            for (i = 0; i < TOTALCIDADES; i++)
+            for (i = 0; i < TOTALCIDADES; i++) {
                 if (!verticesNoCaminho[i])
                     if (distancias[aux * TOTALCIDADES + i] != -1 && custos[aux] + distancias[aux * TOTALCIDADES + i] < custos[i])
-                        custos[i] = custos[aux] + distancias[aux * TOTALCIDADES + i]; 
+                        custos[i] = custos[aux] + distancias[aux * TOTALCIDADES + i];
+            } 
         }
     } while (aux != destino && distMinima != HUGE_VAL);
 }
@@ -94,15 +103,15 @@ void calculoDistancia(int inicio, int fim) {
     for (i = inicio; i < fim; i++)
         for (j = 0; j < TOTALCIDADES; j++)
             dijkstra(i, j);
-}
 
+}
 // Funcao principal Main
 // - Roda toda a estrutura 
 int main(int argc, char **argv) {
     setlocale(LC_ALL, "portuguese");
     time_t t_ini, t_fim;
     float temp;
-    int ntasks, rank, inicio, fim;
+    int inicio, fim, ntasks, rank;
     MPI_Request request;
     MPI_Status status;
 
@@ -123,17 +132,17 @@ int main(int argc, char **argv) {
 	lerMapa();
 
     printf(" Rank = %d\n", rank);
-
-    MPI_Barrier(MPI_COMM_WORLD);
+    printf(" Tasks = %d\n", ntasks);
 	t_ini = time(NULL);
-    calculoDistancia(inicio, fim);
-    t_fim = time(NULL);
     MPI_Barrier(MPI_COMM_WORLD);
+    calculoDistancia(inicio, fim);
+    MPI_Barrier(MPI_COMM_WORLD);
+    t_fim = time(NULL);
     temp = difftime(t_fim, t_ini);
 
     if (rank == 0)
         printf(" Tempo de execução: %.0f\n", temp);
-
+    
     MPI_Finalize();
     return 0;
 }
