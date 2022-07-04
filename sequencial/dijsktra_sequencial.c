@@ -101,6 +101,7 @@ int main(int argc, char *argv[]){
     time_t t_ini, t_fim;
     float temp;
 
+    printf("ALGORITMO SEQUENCIAL\n\n");
     srand((unsigned)TOTALCIDADES);
     zeraDistancia();
     lerMapa();

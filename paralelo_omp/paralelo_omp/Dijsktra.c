@@ -113,6 +113,8 @@ int main(int argc, char** argv) {
     time_t t_ini, t_fim;
     float temp;
 
+    printf("ALGORITMO PARELIZADO EM OPENMP\n\n");
+
     srand((unsigned)TOTALCIDADES);
     zeraDistancia();
     lerMapa();
@@ -121,7 +123,7 @@ int main(int argc, char** argv) {
     calculoDistancia();  
     t_fim = time(NULL);
     temp = difftime(t_fim, t_ini);
-    printf("Tempo de execução: %.0f \n", temp);
+    printf(" Tempo de execução: %.0f \n", temp);
 
     return EXIT_SUCCESS;
 }

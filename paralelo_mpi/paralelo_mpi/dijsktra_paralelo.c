@@ -56,18 +56,19 @@ int matrix_size(MPI_Comm comm) {
 // - Por fim, é feito o calculo do menor caminho
 // - Impresso o resultado
 void dijkstra(int origem, int destino){
-    int *anterior, i, aux = 0, *verticesNoCaminho, calculo, n;
-    double distMinima, auxDist;
+    int i = 0, aux = 0;
+    int* verticesNoCaminho; // Vertices que sao acessados para o menor caminho
+    double distMinima; // Custoo com os caminhos
 
-    verticesNoCaminho = calloc(TOTALCIDADES, sizeof(int *));
-    if (verticesNoCaminho == NULL){
-        printf(" Erro na alocacao\n");
+    verticesNoCaminho = (int*)calloc(TOTALCIDADES, sizeof(int));
+
+    if (verticesNoCaminho == NULL) {
+        printf("ERROR: Erro na alocacao \n");
         exit(-1);
     }
 
-    //n = matrix_size(MPI_COMM_WORLD);
 
-    for (i = 0; i < TOTALCIDADES; i++){
+    for (i = 0; i < TOTALCIDADES; i++) {
         verticesNoCaminho[i] = 0;
         if (distancias[(origem)*TOTALCIDADES + i] != -1)
             custos[i] = distancias[(origem)*TOTALCIDADES + i];
@@ -77,23 +78,27 @@ void dijkstra(int origem, int destino){
 
     verticesNoCaminho[origem] = 1;
     custos[origem] = 0;
-    do{
+
+    // Principal la�o
+    do {
         distMinima = HUGE_VAL;
+
         for (i = 0; i < TOTALCIDADES; i++)
             if (!verticesNoCaminho[i])
-                if (custos[i] >= 0 && custos[i] < distMinima){
+                if (custos[i] >= 0 && custos[i] < distMinima) {
                     distMinima = custos[i];
                     aux = i;
                 }
-        if (distMinima != HUGE_VAL && aux != destino){
+
+        if (distMinima != HUGE_VAL && aux != destino) {
             verticesNoCaminho[aux] = 1;
-            for (i = 0; i < TOTALCIDADES; i++) {
+            for (i = 0; i < TOTALCIDADES; i++) 
                 if (!verticesNoCaminho[i])
                     if (distancias[aux * TOTALCIDADES + i] != -1 && custos[aux] + distancias[aux * TOTALCIDADES + i] < custos[i])
                         custos[i] = custos[aux] + distancias[aux * TOTALCIDADES + i];
-            } 
+
         }
-    } while (aux != destino && distMinima != HUGE_VAL);
+    } while (aux != destino && distMinima != HUGE_VAL);;
 }
 
 // Funcao calculoDistancia
@@ -107,7 +112,7 @@ void calculoDistancia(int inicio, int fim) {
 }
 // Funcao principal Main
 // - Roda toda a estrutura 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
     setlocale(LC_ALL, "portuguese");
     time_t t_ini, t_fim;
     float temp;
@@ -119,6 +124,8 @@ int main(int argc, char **argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &ntasks);
 
+    ntasks = 32;
+
     int nDados = TOTALCIDADES / ntasks;
     inicio = rank * nDados;
 
@@ -126,6 +133,8 @@ int main(int argc, char **argv) {
         fim = TOTALCIDADES;
     else
         fim = nDados + rank * nDados;
+
+    printf("ALGORITMO PARELIZADO EM MPI\n\n");
 
     srand((unsigned)TOTALCIDADES);
 	zeraDistancia();
