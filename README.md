@@ -13,3 +13,7 @@ O OpenMP é uma interface de programação de aplicativo para a programação mu
 
 ## Algoritmo em OpenMPI
 O Open MPI Project é uma implementação de código aberto da especificação Message Passing Interface (MPI) desenvolvida e mantida por um consórcio de parceiros acadêmicos, de pesquisa e do setor. O Open MPI é, portanto, capaz de combinar o conhecimento, as tecnologias e os recursos de toda a comunidade de computação de alto desempenho para construir a melhor biblioteca MPI disponível. O Open MPI oferece vantagens para fornecedores de sistemas e software, desenvolvedores de aplicativos e pesquisadores de ciência da computação.
+
+### Relatorio de desempenho
+
+[![Relatorio de desempenho](https://www.flaticon.com/br/para-google)](https://docs.google.com/document/d/1BsKDLrcWw4pZSR_ly8a9Dydf1huFnvc_3Q1dxbeIk8w/edit)
